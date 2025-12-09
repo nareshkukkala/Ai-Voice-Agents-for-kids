@@ -86,8 +86,8 @@ export const mockParentFeatures = [
 export const mockSteps = [
   {
     number: 1,
-    title: "Download the App or Open the Website",
-    description: "Available on phones, tablets, and computers."
+    title: "Visit KidoTalk Website",
+    description: "Access KidoTalk directly from any browser on phones, tablets, and computers."
   },
   {
     number: 2,
