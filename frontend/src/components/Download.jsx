@@ -2,29 +2,39 @@ import React from 'react';
 import { Apple, Chrome } from 'lucide-react';
 
 const Download = () => {
+  const scrollToDemo = () => {
+    const element = document.getElementById('demo');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="download" className="py-20 px-6" style={{ background: 'var(--gradient-hero-warm)' }}>
       <div className="max-w-4xl mx-auto text-center">
         {/* Section Header */}
         <h2 className="heading-1 font-heading mb-4">Ready to Talk, Learn, and Play?</h2>
-        <p className="body-large mb-12" style={{ color: 'var(--text-secondary)' }}>
-          Set up KidoTalk in just a few minutes.
+        <p className="body-large mb-4" style={{ color: 'var(--text-secondary)' }}>
+          Start using KidoTalk instantly - No download required!
+        </p>
+        <p className="body-medium mb-12" style={{ color: 'var(--text-secondary)' }}>
+          Access directly from your browser on any device.
         </p>
 
-        {/* Download Buttons */}
+        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-          <button className="btn-primary flex items-center gap-3 px-8">
-            <Apple size={24} />
+          <button onClick={scrollToDemo} className="btn-primary flex items-center gap-3 px-8">
+            <Chrome size={24} />
             <div className="text-left">
-              <div className="text-xs uppercase tracking-wide opacity-80">Download on</div>
-              <div className="text-base font-semibold">App Store</div>
+              <div className="text-xs uppercase tracking-wide opacity-80">Start Now</div>
+              <div className="text-base font-semibold">Use in Browser</div>
             </div>
           </button>
           <button className="btn-secondary flex items-center gap-3 px-8">
-            <Chrome size={24} />
+            <Apple size={24} />
             <div className="text-left">
-              <div className="text-xs uppercase tracking-wide opacity-80">Use in</div>
-              <div className="text-base font-semibold">Browser</div>
+              <div className="text-xs uppercase tracking-wide opacity-80">Coming Soon</div>
+              <div className="text-base font-semibold">Mobile App</div>
             </div>
           </button>
         </div>
