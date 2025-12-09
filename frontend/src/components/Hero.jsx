@@ -26,8 +26,11 @@ const Hero = () => {
           </h1>
 
           {/* Subheadline */}
-          <p className="body-large mb-8" style={{ color: 'var(--text-secondary)' }}>
+          <p className="body-large mb-4" style={{ color: 'var(--text-secondary)' }}>
             Kids can ask questions, play games, and practice speaking safely with a smart, kid-friendly voice assistant.
+          </p>
+          <p className="body-medium mb-8" style={{ color: 'var(--text-secondary)', opacity: 0.9 }}>
+            ✨ No download required - Start instantly in your browser
           </p>
 
           {/* CTA Buttons */}
