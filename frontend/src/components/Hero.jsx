@@ -51,10 +51,10 @@ const Hero = () => {
             />
             {/* Floating Speech Bubbles */}
             <div className="absolute -top-4 -left-4 bg-white rounded-2xl p-3 shadow-lg hidden md:block">
-              <p className="text-sm font-medium">What's 5 + 3? 🤔</p>
+              <p className="text-sm font-medium">What's 5 + 3?</p>
             </div>
             <div className="absolute -bottom-4 -right-4 bg-white rounded-2xl p-3 shadow-lg hidden md:block">
-              <p className="text-sm font-medium">Tell me a story! 📚</p>
+              <p className="text-sm font-medium">Tell me a story!</p>
             </div>
           </div>
         </div>
