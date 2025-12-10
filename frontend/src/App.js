@@ -10,7 +10,7 @@ import Hero from './components/Hero';
 import ForKids from './components/ForKids';
 import ForParents from './components/ForParents';
 import HowItWorks from './components/HowItWorks';
-import VoiceDemo from './components/VoiceDemo';
+import VoiceDemoReal from './components/VoiceDemoReal';
 import FAQ from './components/FAQ';
 import Download from './components/Download';
 import Footer from './components/Footer';
