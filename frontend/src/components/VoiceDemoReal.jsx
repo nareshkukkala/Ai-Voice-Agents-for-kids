@@ -98,11 +98,6 @@ const VoiceDemoReal = () => {
           question: question,
           kid_profile_id: mockKidProfileId,
           session_id: sessionId
-        },
-        {
-          headers: {
-            'Authorization': 'Bearer demo-token-for-testing'
-          }
         }
       );
 
