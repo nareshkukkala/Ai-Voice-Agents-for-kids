@@ -193,6 +193,11 @@ const VoiceDemoReal = ({ onAuthRequired }) => {
     'Can we play a game?'
   ];
 
+  // Redirect to auth if not authenticated
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <section id="demo" className="py-20 px-6">
       <div className="max-w-5xl mx-auto">
