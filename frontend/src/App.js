@@ -39,7 +39,7 @@ const Home = () => {
       <ForKids />
       <ForParents />
       <HowItWorks />
-      <VoiceDemo />
+      <VoiceDemoReal />
       <FAQ />
       <Download />
       <Footer />
