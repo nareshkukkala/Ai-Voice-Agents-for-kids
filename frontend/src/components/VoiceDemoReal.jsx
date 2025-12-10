@@ -102,6 +102,7 @@ const VoiceDemoReal = () => {
       
     } catch (err) {
       console.error('AI response error:', err);
+      console.error('Error details:', err.response?.data || err.message);
       const mockResponse = getMockResponse(question);
       setConversation(prev => [...prev, { type: 'assistant', text: mockResponse }]);
       speakText(mockResponse);
