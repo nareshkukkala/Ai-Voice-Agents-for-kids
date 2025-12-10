@@ -46,11 +46,21 @@ const Header = ({ onGetStartedClick }) => {
           </button>
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <button onClick={() => scrollToSection('download')} className="btn-primary">
-            Get Started
-          </button>
+        {/* CTA Button / User Menu */}
+        <div className="hidden md:flex items-center gap-3">
+          {user ? (
+            <>
+              <span className="text-sm font-medium">Hi, {user.name}!</span>
+              <button onClick={logout} className="btn-secondary flex items-center gap-2">
+                <LogOut size={16} />
+                Logout
+              </button>
+            </>
+          ) : (
+            <button onClick={onGetStartedClick} className="btn-primary">
+              Get Started
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
