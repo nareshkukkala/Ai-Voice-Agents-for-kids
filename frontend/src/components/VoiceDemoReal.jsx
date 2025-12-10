@@ -198,10 +198,10 @@ const VoiceDemoReal = () => {
   };
 
   const quickQuestions = [
-    \"What's 5 + 3?\",
-    \"Tell me a story!\",
-    \"How do birds fly?\",
-    \"Can we play a game?\"
+    "What's 5 + 3?",
+    "Tell me a story!",
+    "How do birds fly?",
+    "Can we play a game?"
   ];
 
   return (
