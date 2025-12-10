@@ -48,7 +48,7 @@ const VoiceDemoReal = () => {
 
       recognitionRef.current.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
-        setError('Oops! I couldn\\'t hear you. Try again!');
+        setError("Oops! I couldn't hear you. Try again!");
         setIsListening(false);
       };
 
