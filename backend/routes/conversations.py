@@ -2,66 +2,77 @@ from fastapi import APIRouter, HTTPException, Depends
 from typing import List
 from models.conversation import Conversation, ConversationCreate, ChatRequest, ChatResponse
 from routes.auth import get_current_user
-import random
+from emergentintegrations.llm.chat import LlmChat, UserMessage
+from dotenv import load_dotenv
+import os
+import logging
+
+load_dotenv()
 
 router = APIRouter(prefix="/conversations", tags=["conversations"])
+logger = logging.getLogger(__name__)
 
 # Database dependency
 from server import db
 
-# Mock responses for now (will be replaced with AI later)
-MOCK_RESPONSES = {
-    "math": [
-        "Great question! Let me help you with that math problem. The answer is {answer}. Want to try another one?",
-        "Awesome! Math is fun! {answer} is the correct answer. Keep practicing!"
-    ],
-    "story": [
-        "Once upon a time, there was a curious robot named Kido who loved learning new things every day...",
-        "Let me tell you an exciting story about a brave explorer who discovered amazing things!"
-    ],
-    "science": [
-        "That's a wonderful science question! Let me explain it in a simple way...",
-        "Science is amazing! Here's what you need to know..."
-    ],
-    "game": [
-        "Yes! Let's play a fun game together. I'll start and you can join in!",
-        "Games are great for learning! Let's play something exciting!"
-    ],
-    "animals": [
-        "Animals are fascinating creatures! Let me tell you about them...",
-        "Great question about animals! Here's what you should know..."
-    ],
-    "space": [
-        "Space is incredible! Let me share some cool facts with you...",
-        "The universe is full of wonders! Here's what I can tell you..."
-    ],
-    "default": [
-        "That's an interesting question! Let me think about that...",
-        "Great question! I'm here to help you learn and explore!"
-    ]
-}
+# System message for kid-friendly responses
+KID_SYSTEM_MESSAGE = """You are KidoTalk, a friendly AI voice assistant designed for children aged 5-12. 
 
-def get_mock_response(question: str) -> tuple:
+Your role:
+- Answer questions in simple, easy-to-understand language
+- Be encouraging, patient, and positive
+- Keep responses short (2-4 sentences maximum)
+- Make learning fun and engaging
+- Never use scary, inappropriate, or complex language
+- If asked something inappropriate, gently redirect to educational topics
+- Use age-appropriate examples and explanations
+
+Remember: You're talking to a child, so be warm, friendly, and supportive!"""
+
+def detect_category(question: str) -> str:
+    """Detect the category of the question"""
     question_lower = question.lower()
     
-    # Simple category detection
-    if any(word in question_lower for word in ['add', 'plus', 'minus', 'multiply', 'divide', 'math', 'number']):
-        category = "math"
+    if any(word in question_lower for word in ['add', 'plus', 'minus', 'multiply', 'divide', 'math', 'number', 'count']):
+        return "math"
     elif 'story' in question_lower or 'tell me' in question_lower:
-        category = "story"
+        return "story"
     elif any(word in question_lower for word in ['how', 'why', 'what', 'science', 'work']):
-        category = "science"
+        return "science"
     elif 'game' in question_lower or 'play' in question_lower:
-        category = "game"
-    elif any(word in question_lower for word in ['animal', 'bird', 'fish', 'dog', 'cat']):
-        category = "animals"
-    elif any(word in question_lower for word in ['space', 'planet', 'star', 'moon', 'sun']):
-        category = "space"
+        return "game"
+    elif any(word in question_lower for word in ['animal', 'bird', 'fish', 'dog', 'cat', 'pet']):
+        return "animals"
+    elif any(word in question_lower for word in ['space', 'planet', 'star', 'moon', 'sun', 'galaxy']):
+        return "space"
     else:
-        category = "default"
-    
-    response = random.choice(MOCK_RESPONSES.get(category, MOCK_RESPONSES["default"]))
-    return response, category
+        return "general"
+
+async def get_ai_response(question: str, session_id: str) -> tuple:
+    """Get AI response using OpenAI GPT-4o"""
+    try:
+        api_key = os.getenv("EMERGENT_LLM_KEY")
+        
+        # Initialize chat
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=session_id,
+            system_message=KID_SYSTEM_MESSAGE
+        ).with_model("openai", "gpt-4o")
+        
+        # Create user message
+        user_message = UserMessage(text=question)
+        
+        # Get response
+        response = await chat.send_message(user_message)
+        category = detect_category(question)
+        
+        return response, category
+        
+    except Exception as e:
+        logger.error(f"AI response error: {str(e)}")
+        # Fallback to simple response
+        return "That's a great question! Let me help you with that.", "general"
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat(chat_request: ChatRequest, current_user: dict = Depends(get_current_user)):
