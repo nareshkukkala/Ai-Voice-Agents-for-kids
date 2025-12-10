@@ -6,7 +6,8 @@ import { useAuth } from '../contexts/AuthContext';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const VoiceDemoReal = () => {
+const VoiceDemoReal = ({ onAuthRequired }) => {
+  const { user, isAuthenticated } = useAuth();
   const [isListening, setIsListening] = useState(false);
   const [conversation, setConversation] = useState([]);
   const [currentTranscript, setCurrentTranscript] = useState('');
@@ -17,6 +18,11 @@ const VoiceDemoReal = () => {
   
   const recognitionRef = useRef(null);
   const synthRef = useRef(window.speechSynthesis);
+  
+  // Redirect to auth if not authenticated
+  if (!isAuthenticated) {
+    return null;
+  }
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
