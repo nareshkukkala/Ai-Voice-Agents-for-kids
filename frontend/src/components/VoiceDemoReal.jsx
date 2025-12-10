@@ -18,11 +18,6 @@ const VoiceDemoReal = ({ onAuthRequired }) => {
   
   const recognitionRef = useRef(null);
   const synthRef = useRef(window.speechSynthesis);
-  
-  // Redirect to auth if not authenticated
-  if (!isAuthenticated) {
-    return null;
-  }
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
