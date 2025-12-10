@@ -85,8 +85,8 @@ async def chat(chat_request: ChatRequest, current_user: dict = Depends(get_curre
     if not profile:
         raise HTTPException(status_code=404, detail="Profile not found")
     
-    # Get mock response
-    answer, category = get_mock_response(chat_request.question)
+    # Get AI response
+    answer, category = await get_ai_response(chat_request.question, chat_request.session_id)
     
     # Save conversation
     conversation = Conversation(
