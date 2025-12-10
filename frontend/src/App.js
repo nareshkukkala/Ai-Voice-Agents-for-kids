@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
@@ -12,8 +12,11 @@ import ForParents from './components/ForParents';
 import HowItWorks from './components/HowItWorks';
 import VoiceDemoReal from './components/VoiceDemoReal';
 import FAQ from './components/FAQ';
-import Download from './components/Download';
 import Footer from './components/Footer';
+import AuthModal from './components/AuthModal';
+
+// Context
+import { AuthProvider } from './contexts/AuthContext';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
