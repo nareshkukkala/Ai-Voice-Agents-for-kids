@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
-const Header = () => {
+const Header = ({ onGetStartedClick }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
