@@ -22,6 +22,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const Home = () => {
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+
   const helloWorldApi = async () => {
     try {
       const response = await axios.get(`${API}/`);
@@ -37,15 +39,15 @@ const Home = () => {
 
   return (
     <div className="relative">
-      <Header />
+      <Header onGetStartedClick={() => setAuthModalOpen(true)} />
       <Hero />
       <ForKids />
       <ForParents />
       <HowItWorks />
       <VoiceDemoReal />
       <FAQ />
-      <Download />
       <Footer />
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </div>
   );
 };
