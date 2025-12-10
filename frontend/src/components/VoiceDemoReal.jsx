@@ -122,10 +122,10 @@ const VoiceDemoReal = () => {
 
   const getMockResponse = (question) => {
     const responses = [
-      \"That's a great question! I'd love to help you learn about that.\",
-      \"Wow, you're so curious! That's wonderful for learning.\",
-      \"Great thinking! Let me explain that in a simple way.\",
-      \"You're asking awesome questions! Keep being curious!\"
+      "That's a great question! I'd love to help you learn about that.",
+      "Wow, you're so curious! That's wonderful for learning.",
+      "Great thinking! Let me explain that in a simple way.",
+      "You're asking awesome questions! Keep being curious!"
     ];
     return responses[Math.floor(Math.random() * responses.length)];
   };
