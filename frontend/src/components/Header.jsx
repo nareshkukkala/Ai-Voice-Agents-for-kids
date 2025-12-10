@@ -92,9 +92,16 @@ const Header = ({ onGetStartedClick }) => {
             <button onClick={() => scrollToSection('faq')} className="text-left py-2 font-medium hover:opacity-70 transition-opacity">
               FAQ
             </button>
-            <button onClick={() => scrollToSection('download')} className="btn-primary mt-2">
-              Get Started
-            </button>
+            {user ? (
+              <button onClick={logout} className="btn-secondary mt-2 flex items-center gap-2">
+                <LogOut size={16} />
+                Logout ({user.name})
+              </button>
+            ) : (
+              <button onClick={onGetStartedClick} className="btn-primary mt-2">
+                Get Started
+              </button>
+            )}
           </nav>
         </div>
       )}
